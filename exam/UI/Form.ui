@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>692</width>
+    <height>582</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="delayLabel">
+       <property name="text">
+        <string>Частота обновления, с</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="delayComboBox"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabCPU">
+      <attribute name="title">
+       <string>Процессор</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QTextEdit" name="textEditCPU"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabRAM">
+      <attribute name="title">
+       <string>ОЗУ</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QTextEdit" name="textEditRAM"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabHDD">
+      <attribute name="title">
+       <string>ПЗУ</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QTextEdit" name="textEditHDD"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabProcesses">
+      <attribute name="title">
+       <string>Процессы</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QTextEdit" name="textEditProcesses"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabServices">
+      <attribute name="title">
+       <string>Службы</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QTextEdit" name="textEditServices"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabScheduler">
+      <attribute name="title">
+       <string>Планировщик</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QTextEdit" name="textEditScheduler"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
