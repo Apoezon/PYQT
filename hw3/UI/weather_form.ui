@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>300</height>
+    <width>500</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>350</width>
-    <height>300</height>
+    <width>500</width>
+    <height>700</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>350</width>
-    <height>300</height>
+    <width>500</width>
+    <height>700</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
         <widget class="QLineEdit" name="latLineEdit">
          <property name="maximumSize">
           <size>
-           <width>220</width>
+           <width>500</width>
            <height>16777215</height>
           </size>
          </property>
@@ -65,7 +65,7 @@
         <widget class="QLineEdit" name="lonLineEdit">
          <property name="maximumSize">
           <size>
-           <width>220</width>
+           <width>500</width>
            <height>16777215</height>
           </size>
          </property>
@@ -81,7 +81,7 @@
    <item>
     <widget class="QLabel" name="statusLabel">
      <property name="text">
-      <string>StatusLabel</string>
+      <string>Статус</string>
      </property>
     </widget>
    </item>
@@ -90,7 +90,10 @@
      <item>
       <widget class="QLabel" name="rtLabel">
        <property name="text">
-        <string>Refresh time</string>
+        <string>Скорость обновления</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -114,14 +117,14 @@
      <item>
       <widget class="QPushButton" name="startPushButton">
        <property name="text">
-        <string>Get Data!</string>
+        <string>Получать данные</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="stopPushButton">
        <property name="text">
-        <string>Stop it!</string>
+        <string>Приостановать получение</string>
        </property>
       </widget>
      </item>

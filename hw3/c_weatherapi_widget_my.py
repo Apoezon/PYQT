@@ -44,7 +44,9 @@ class WeatherWindow(QtWidgets.QWidget):
         :return:
         """
         # startPushButton pressed
+
         self.ui.startPushButton.clicked.connect(self.getData) # -> запускает поток
+
 
         self.thread.weatherInfoReceived.connect(self.setValues)
         self.thread.started.connect(self.ui.statusLabel.setText('Получаем данные'))
@@ -61,26 +63,22 @@ class WeatherWindow(QtWidgets.QWidget):
         :return: None
         """
 
-        print(weatherInfoReceived['current'])
-        print(weatherInfoReceived['location'])
-        city = weatherInfoReceived['location']['name']
-        country = weatherInfoReceived['location']['country']
-        temp_c = weatherInfoReceived['current']['temp_c']
-        humidity = weatherInfoReceived['current']['humidity']
-        feel_temperature = weatherInfoReceived['current']['feelslike_c']
-        wind_kph = weatherInfoReceived['current']['wind_kph']
-        wind_dir = weatherInfoReceived['current']['wind_dir']
-        vis_km = weatherInfoReceived['current']['vis_km']
-        uv = weatherInfoReceived['current']['uv']
-
-        self.ui.textEdit.setText(f"Country: {country}\tcity: {city}")
-        self.ui.textEdit.append(f"Temperature, C: {temp_c}\thumidity, %: {humidity}")
-        self.ui.textEdit.append(f"Feels like, C: {feel_temperature}")
-        self.ui.textEdit.append(f"Wind, km/h: {wind_kph}\tdirection: {wind_dir}")
-        self.ui.textEdit.append(f"Visibility, km: {vis_km}\tUV level: {uv}")
+        lat_recieved = weatherInfoReceived['latitude']
+        lon_recieved = weatherInfoReceived['longitude']
 
 
-    #todo
+        self.ui.textEdit.setText(f'Погода для координат\nШирота: {lat_recieved}\tДолгота: {lon_recieved}\n')
+
+        temperature = weatherInfoReceived['current_weather']['temperature']
+        self.ui.textEdit.append(f"Температура, C: {temperature}")
+        windspeed = weatherInfoReceived['current_weather']['windspeed']
+        winddirection = weatherInfoReceived['current_weather']['winddirection']
+        self.ui.textEdit.append(f"Ветер, км/ч: {windspeed} направление: {winddirection}")
+        self.ui.textEdit.append(f"Данные по времени:")
+        self.ui.textEdit.append(f"Время\t\tТемпература\tВлажность\tИндекс УФ")
+        for i in range(24):
+            self.ui.textEdit.append(f"{weatherInfoReceived['hourly']['time'][i]}\t{weatherInfoReceived['hourly']['temperature_2m'][i]}\t{weatherInfoReceived['hourly']['relativehumidity_2m'][i]}\t{weatherInfoReceived['hourly']['uv_index'][i]}")
+
     def initThreads(self) -> None:
         """
         Инициализация потока
@@ -94,8 +92,13 @@ class WeatherWindow(QtWidgets.QWidget):
         Запуск потока для получения данных о погоде
         :return: None
         """
+        self.thread.setCoordinates(float(self.ui.latLineEdit.text()), float(self.ui.lonLineEdit.text()))
 
         if self.coordinates_correct():
+
+            # self.thread.setCoordinates(float(self.ui.latLineEdit.text()), float(self.ui.lonLineEdit.text()))
+            # print(float(self.ui.latLineEdit.text()), float(self.ui.lonLineEdit.text()))
+
             self.ui.startPushButton.setEnabled(False)
             self.ui.latLineEdit.setEnabled(False)
             self.ui.lonLineEdit.setEnabled(False)
@@ -105,8 +108,11 @@ class WeatherWindow(QtWidgets.QWidget):
             self.thread.setDelay(delay_value)
             self.thread.setStatus(True)
 
-            self.thread.lat = float(self.ui.latLineEdit.text())
-            self.thread.lon = float(self.ui.lonLineEdit.text())
+
+
+            # self.thread.lat = float(self.ui.latLineEdit.text())
+            # self.thread.lon = float(self.ui.lonLineEdit.text())
+
             self.ui.statusLabel.setText("Получаем данные!")
             self.thread.start()
         else:
@@ -158,22 +164,18 @@ class WeatherWindow(QtWidgets.QWidget):
 class WeatherHandler(QtCore.QThread):
     weatherInfoReceived = QtCore.Signal(dict)
 
-    def __init__(self, lat = 25.214356, lon=55.428693, parent=None):
+    def __init__(self, parent=None): #
         super().__init__(parent)
-        self.lat = lat
-        self.lon = lon
-        print(self.lat, self.lon, 'values')
 
-        self.url = "https://weatherapi-com.p.rapidapi.com/current.json"
-        self.querystring = {"q": f"{self.lat},{self.lat}"}
-        self.headers = {
-            "X-RapidAPI-Key": "53ed662919mshcb46ce7fe0a20c2p18bef3jsnc821ebb308fe",
-            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
-        }
-
-        # self.__api_url = f"https://api.open-meteo.com/v1/forecast?latitude={self.lat}&longitude={self.lon}&current_weather=true"
+        self.__lat = None #/ 25.214356
+        self.__lon = None #/ 55.428693
         self.__delay = 10
         self.__status = None
+
+        self.url = None # f"https://api.open-meteo.com/v1/forecast?latitude={self.lat}&longitude={self.lon}&hourly=temperature_2m,relativehumidity_2m,uv_index&current_weather=true"
+        print(self.url)
+
+
 
     def setDelay(self, delay) -> None:
         """
@@ -190,11 +192,16 @@ class WeatherHandler(QtCore.QThread):
         :return:
         """
         self.__status = val
+    def setCoordinates(self, lat, lon):
+        self.__lat = lat
+        self.__lon = lon
+        self.url = f"https://api.open-meteo.com/v1/forecast?latitude={self.__lat}&longitude={self.__lon}&hourly=temperature_2m,relativehumidity_2m,uv_index&current_weather=true"
 
     def run(self) -> None:
         while self.__status:
-            response = requests.get(self.url, headers=self.headers, params=self.querystring)
+            response = requests.get(self.url) #, headers=self.headers, params=self.querystring)
             data = response.json()
+            print(data)
             self.weatherInfoReceived.emit(data)
             time.sleep(self.__delay)
 

@@ -23,9 +23,9 @@ class Ui_WeatherForm(object):
     def setupUi(self, WeatherForm):
         if not WeatherForm.objectName():
             WeatherForm.setObjectName(u"WeatherForm")
-        WeatherForm.resize(350, 300)
-        WeatherForm.setMinimumSize(QSize(350, 300))
-        WeatherForm.setMaximumSize(QSize(350, 300))
+        WeatherForm.resize(500, 700)
+        WeatherForm.setMinimumSize(QSize(500, 700))
+        WeatherForm.setMaximumSize(QSize(500, 700))
         self.verticalLayout_2 = QVBoxLayout(WeatherForm)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
@@ -39,7 +39,7 @@ class Ui_WeatherForm(object):
 
         self.latLineEdit = QLineEdit(WeatherForm)
         self.latLineEdit.setObjectName(u"latLineEdit")
-        self.latLineEdit.setMaximumSize(QSize(220, 16777215))
+        self.latLineEdit.setMaximumSize(QSize(500, 16777215))
 
         self.horizontalLayout.addWidget(self.latLineEdit)
 
@@ -55,7 +55,7 @@ class Ui_WeatherForm(object):
 
         self.lonLineEdit = QLineEdit(WeatherForm)
         self.lonLineEdit.setObjectName(u"lonLineEdit")
-        self.lonLineEdit.setMaximumSize(QSize(220, 16777215))
+        self.lonLineEdit.setMaximumSize(QSize(500, 16777215))
 
         self.horizontalLayout_2.addWidget(self.lonLineEdit)
 
@@ -74,6 +74,7 @@ class Ui_WeatherForm(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.rtLabel = QLabel(WeatherForm)
         self.rtLabel.setObjectName(u"rtLabel")
+        self.rtLabel.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.horizontalLayout_3.addWidget(self.rtLabel)
 
@@ -118,9 +119,9 @@ class Ui_WeatherForm(object):
         self.latLineEdit.setText("")
         self.lonLabel.setText(QCoreApplication.translate("WeatherForm", u"Longide", None))
         self.lonLineEdit.setText("")
-        self.statusLabel.setText(QCoreApplication.translate("WeatherForm", u"StatusLabel", None))
-        self.rtLabel.setText(QCoreApplication.translate("WeatherForm", u"Refresh time", None))
-        self.startPushButton.setText(QCoreApplication.translate("WeatherForm", u"Get Data!", None))
-        self.stopPushButton.setText(QCoreApplication.translate("WeatherForm", u"Stop it!", None))
+        self.statusLabel.setText(QCoreApplication.translate("WeatherForm", u"\u0421\u0442\u0430\u0442\u0443\u0441", None))
+        self.rtLabel.setText(QCoreApplication.translate("WeatherForm", u"\u0421\u043a\u043e\u0440\u043e\u0441\u0442\u044c \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f", None))
+        self.startPushButton.setText(QCoreApplication.translate("WeatherForm", u"\u041f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0434\u0430\u043d\u043d\u044b\u0435", None))
+        self.stopPushButton.setText(QCoreApplication.translate("WeatherForm", u"\u041f\u0440\u0438\u043e\u0441\u0442\u0430\u043d\u043e\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435", None))
     # retranslateUi
 
